@@ -1,0 +1,169 @@
+
+const app = document.querySelector("#app");
+
+const wrapper= document.querySelector(".wrapper");
+
+// const app = document.getElementById("app");
+
+console.log(app);
+console.log(wrapper);
+
+// setTimeout(() => {
+//     app.style.background = "blue";
+// }, 1000);  //aprés une 1s la couleur change
+
+
+const colors =["red", "blue", "yellow", "orange"];
+let i = 0;
+setInterval(() => {
+    app.style.background = colors[i];
+    i++;
+    if(i>colors.length  - 1){
+        i=0
+
+    }
+}, 1000); // il change de couleur chaque 1s
+
+// -----------------------------------------------children
+const firstchildw = wrapper.firstElementChild;
+
+const firstchild = app.firstElementChild;
+
+// afficher le deuxième child
+const secondchild = app.children[1];
+const childrenapp = app.children;
+const secondchildw = wrapper.children[1];
+
+const previousSister1= app.previousElementSibling;
+const nextSister1= app.nextElementSibling;
+
+
+// console.log("le premier enfant est "+firstchild);
+// console.log("le second enfant est "+secondchild);
+
+// console.log("le premier enfant est "+firstchildw);
+// console.log("le second enfant est "+secondchildw);
+
+console.log({
+    previousSister1: app.previousElementSibling,
+    nextSister1: app.nextElementSibling,
+    firstchild: app.firstElementChild,
+    secondchild: app.children[1],
+    childrenapp: app.children,
+    secondchildw: wrapper.children[1],
+
+   
+});
+
+firstchild.style.color = "white";
+firstchild.style.fontWeight = "bold";
+
+secondchild.style.color = "grey";
+secondchild.style.fontWeight = "bold";
+
+//-------------------------------------------------Parents
+
+const parent = app.parentElement;
+console.log("le parent est" +parent );   // le prmier parent
+
+
+
+
+const parent_du_parent = parent.parentElement;
+console.log("le parent est" +parent_du_parent );// le deuxième parent
+
+//-------------------------------------------------afficher la soeur à droite et à gouche
+const parentw = wrapper.parentElement;
+const parentww = parentw.parentElement;
+
+const previousSister = wrapper.previousElementSibling;
+const nextSister=wrapper.nextElementSibling;
+
+const childSecondDw = firstchildw.firstElementChild;
+const lastSecondDw = firstchildw.lastElementChild;
+
+console.log(
+    {
+        parentw : wrapper.parentElement,
+        parentww : parentw.parentElement,
+        previousSister: wrapper.previousElementSibling,
+        nextSister: wrapper.nextElementSibling,
+
+        firstchildw: wrapper.firstElementChild,
+        childSecondDw: firstchildw.firstElementChild,
+        lastSecondDw: firstchildw.lastElementChild,
+
+    }
+);
+
+//------------------------------------innerHtml
+
+const innerhtml = document.querySelector("#InnerHTML");
+
+// innerhtml.innerHTML =`<div> <p> hi</p></div>`;   déconseiller d'etuliser innerHtml pour modifier le contenu 
+
+const div = document.createElement("div");
+
+console.log(
+    {
+        parentdiv: div.parentElement,
+        contenue: div.innerHTML,
+
+    }
+)
+
+app.appendChild(div);
+
+
+const title = document.createElement("h1");
+title.innerText="have fun !!";
+
+const paragraphe = document.createElement("p");
+paragraphe.innerText="my friends";
+paragraphe.style.fontWeight="bold";
+paragraphe.style.fontSize="24px"
+paragraphe.style.color="White";
+
+div.appendChild(title);
+div.appendChild(paragraphe);
+
+console.log(
+    {
+        parentdiv: div.parentElement,
+        childern : div.children,
+
+    }
+)
+
+const input = document.createElement("input");
+input.style.border="none";
+input.style.borderRadius="5px";
+
+div.appendChild(input);
+
+const color =["orange","blue","red", "blue"]
+
+let j=0;
+
+
+setInterval(() => {
+    input.value +=".";
+    input.style.background=colors[i];
+
+j++;
+if(color.length - 1>j){
+    j=0;
+   
+}
+}, 1000);
+
+
+
+
+
+
+
+
+
+ 
+
