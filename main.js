@@ -55,6 +55,7 @@ export const Questions = [
 ];
 
 
+
 //--------------------------------------------------------------------
 
 const app = document.querySelector("#app");
@@ -62,6 +63,7 @@ const app = document.querySelector("#app");
 const startbutton = document.querySelector("#Start");
 
 startbutton.addEventListener("click", startQuiz)
+
 
 function startQuiz(event){                //-----startQuiz() pour stoquer des infos
 
@@ -74,7 +76,7 @@ let score = 0;                    //le score actuel
   while(app.firstElementChild){
         app.firstElementChild.remove();
   }
-  
+
 
 
  }   
@@ -82,6 +84,7 @@ let score = 0;                    //le score actuel
 // displayQuestion pour afficher la question actuelle 
 
 function displayQuestion(index){
+
     const question = Questions[index];
 
     if(!question) {
@@ -90,17 +93,73 @@ function displayQuestion(index){
 
     const title = getTitleElement(question.question);
     app.appendChild(title);
+
     const answersDiv = creatAnswers(question.answers);
     app.appendChild(answersDiv);
 
+
     const submitButton = getSubmitButton();
-    app.appendChild(submitButton);                      //////******** 1h 10 mins */
+    submitButton.addEventListener("click", submit);
+    app.appendChild(submitButton);                   
+    
+    //////******** 1h 10 mins */
 
  }
 
 clean();
 displayQuestion(currentQuestion);   
+
+function submit(){
+
+  const selectedAnswer = app.querySelector('input[name="answer"]:checked');
+
+    const value = selectedAnswer.value;
+
+    const question =Questions[currentQuestion];
+    
+    const isCorrect = question.correct === value;
+
+    alert(`Submit ${isCorrect ? "Correct" : "Incorrect"}`);
+
+    if(isCorrect) {score++;}
+
+    showfeedback(isCorrect, question.correct, value);
+    const feedback = getFeedbackMessage(isCorrect, question.correct)
+    app.appendChild(feedback);
 }
+
+
+function showfeedback(isCorrect, correct, answer){
+
+  const correctAnswerId = formatId(correct);
+  const correctElement = document.querySelector(
+    `label[for="${correctAnswerId}"]`
+  )
+  const selectedAnswerId = formatId(answer);
+  const selectedAnswer = document.querySelector(
+    `label[for="${selectedAnswerId}"]`
+  )
+
+  if(isCorrect){
+    selectedAnswer.classList.add("correct");
+  }
+  else{
+    selectedAnswer.classList.add("incorrect");
+    correctElement.classList.add("correct");
+  }
+
+ 
+
+}
+function getFeedbackMessage(isCorrect, correct){
+
+  const paragraph = document.createElement("p");
+  paragraph.innerText= isCorrect ? "bravo! tu as eu la bonne répense" :`Désolée! Mais la bonne répense était ${correct}`;
+  return paragraph;
+}
+}
+
+
 
 //------------------afficher les répenses du quiz-------
 
@@ -126,13 +185,17 @@ return title;
 
 }
 
+function formatId(text){
+return text.replaceAll(" ", "-").toLowerCase();
+
+}
 function getAnswerElement(text){
 
 const label = document.createElement("label");
 label.innerText= text;
 
 const input =document.createElement("input");
-const id = text.replaceAll(" ", "-").toLowerCase();
+const id = formatId(text);
 input.id = id;
 label.htmlFor =id;
 input.setAttribute("type", "radio");
@@ -140,10 +203,10 @@ input.setAttribute("name", "answer");
 input.setAttribute("value", text);
 
 label.appendChild(input);
-return label ;}
+return label ;
 
 
-
+}
 
 function getSubmitButton(){
 const submitButton = document.createElement("button");
@@ -205,15 +268,4 @@ return submitButton;
 //     alert("Click Start");
 // }, true);
 
-
-
-
-
-
-
-
-
-
-
-
-
+// 1H.21
